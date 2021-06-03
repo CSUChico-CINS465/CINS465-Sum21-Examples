@@ -7,15 +7,8 @@
 {% block content %}
 <ul>
     {% for i in list %}
-    <li>Item {{ i }}</li>
+    <li>{{ i.suggestion }}</li>
     {% endfor %}
 </ul>
-{% if prev > 0 %}
-<a href="/{{ prev }}/" class="primary button">prev</a>
-{% elif prev == 0 %}
-<a href="/" class="primary button">prev</a>
-{% else %}
-<p class="secondary button">prev</p>
-{% endif %}
-<a href="/{{ next }}/" class="primary button">next</a>
+
 {% endblock %}
