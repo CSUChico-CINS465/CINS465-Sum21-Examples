@@ -6,14 +6,20 @@
 
 {% block content %}
 <ul>
-    {% for i in list %}
-    <li>{{ i.suggestion }}</li>
+    {% for sugg in list %}
+    <li>{{ sugg.suggestion }} - {{ sugg.author }} 
+        <ul>
+            {% for comm in sugg.comments %}
+            <li>{{ comm.comment }} - {{ comm.author }}</li>
+            {% endfor %}
+        </ul>
+    </li>
     {% endfor %}
 </ul>
 <form action="/" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Add Suggestion">
+    <input type="submit" value="Add Suggestion" class="button">
 </form>
 
 {% endblock %}
