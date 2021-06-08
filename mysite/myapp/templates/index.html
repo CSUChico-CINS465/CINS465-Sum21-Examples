@@ -16,10 +16,12 @@
     </li>
     {% endfor %}
 </ul>
+{% if user.is_authenticated %}
 <form action="/" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Add Suggestion" class="button">
 </form>
+{% endif %}
 
 {% endblock %}

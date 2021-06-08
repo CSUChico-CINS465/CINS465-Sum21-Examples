@@ -12,6 +12,27 @@
 </head>
 <body>
     <!--nav bar-->
+    <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Suggestion Site</li>
+            {% if user.is_authenticated %}
+            <li><a href="/logout/">Logout</a></li>
+            {% else %}
+            <li><a href="/login/">Login</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+            {% if user.is_authenticated %}
+                Welcome {{ user.username }}
+            {% else %}
+                Welcome Guest
+            {% endif %}
+          </ul>
+        </div>
+      </div>
     {% block content %}{% endblock %}
     <script src="{% static 'js/vendor.js' %}"></script>
     <script src="{% static 'js/foundation.min.js' %}"></script>

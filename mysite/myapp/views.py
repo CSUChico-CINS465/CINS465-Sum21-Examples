@@ -1,17 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout, login
 
 from . import models
 from . import forms
 
 # Create your views here.
+def logout_view(request):
+    logout(request)
+    return redirect('/login/')
 
 
 def index(request):
     if request.method == "POST":
         suggestion_form = forms.SuggestionForm(request.POST)
-        if suggestion_form.is_valid():
-            suggestion_form.save()
-            suggestion_form = forms.SuggestionForm()
+        if request.user.is_authenticated:
+            if suggestion_form.is_valid():
+                suggestion_form.save(request)
+                suggestion_form = forms.SuggestionForm()
     else:
         suggestion_form = forms.SuggestionForm()
     suggestion_objects = models.SuggestionModel.objects.all()
@@ -41,3 +46,20 @@ def index(request):
         "form": suggestion_form
     }
     return render(request, "index.html", context=context)
+
+def register_view(request):
+    if request.method == "POST":
+        form_instance = forms.RegistrationForm(request.POST)
+        if form_instance.is_valid():
+            user = form_instance.save()
+            # login(request, user)
+            return redirect("/login/")
+    else:
+        form_instance = forms.RegistrationForm()
+
+    context = {
+        "title":"Registration",
+        "form":form_instance
+    }
+
+    return render(request, "registration/register.html", context=context)
