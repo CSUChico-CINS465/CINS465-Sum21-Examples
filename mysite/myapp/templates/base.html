@@ -3,40 +3,46 @@
 <html class="no-js" lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}">
-    {% block css %}{% endblock %}
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}">
+  {% block css %}{% endblock %}
 </head>
+
 <body>
-    <!--nav bar-->
-    <div class="top-bar">
-        <div class="top-bar-left">
-          <ul class="dropdown menu" data-dropdown-menu>
-            <li class="menu-text">Suggestion Site</li>
-            {% if user.is_authenticated %}
-            <li><a href="/logout/">Logout</a></li>
-            {% else %}
-            <li><a href="/login/">Login</a></li>
-            {% endif %}
-          </ul>
-        </div>
-        <div class="top-bar-right">
-          <ul class="menu">
-            {% if user.is_authenticated %}
-                Welcome {{ user.username }}
-            {% else %}
-                Welcome Guest
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    {% block content %}{% endblock %}
-    <script src="{% static 'js/vendor.js' %}"></script>
-    <script src="{% static 'js/foundation.min.js' %}"></script>
-    {% block scripts %}{% endblock %}
+  <!--nav bar-->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">Suggestion Site</li>
+        {% if user.is_authenticated %}
+        <li><a href="/logout/">Logout</a></li>
+        {% else %}
+        <li><a href="/login/">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        {% if user.is_authenticated %}
+        <li><a href="/suggestion/">Add Suggestion</a></li>
+        <li>
+          Welcome {{ user.username }}
+        </li>
+        {% else %}
+        <li>
+          Welcome Guest
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  {% block content %}{% endblock %}
+  <script src="{% static 'js/vendor.js' %}"></script>
+  <script src="{% static 'js/foundation.min.js' %}"></script>
+  {% block scripts %}{% endblock %}
 </body>
 
 </html>

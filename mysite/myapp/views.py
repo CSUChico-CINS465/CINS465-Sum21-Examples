@@ -1,6 +1,7 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login
+from django.contrib.auth.decorators import login_required
 
 from . import models
 from . import forms
@@ -65,7 +66,42 @@ def register_view(request):
 
     return render(request, "registration/register.html", context=context)
 
+@login_required
+def comment_view(request, sugg_id):
+    if not request.user.is_authenticated:
+        return redirect("/")
+    if request.method == "POST":
+        form_instance = forms.CommentForm(request.POST)
+        if form_instance.is_valid():
+            form_instance.save(request, sugg_id)
+            return redirect("/")
+    else:
+        form_instance = forms.CommentForm()
+    context = {
+        "title":"Comment",
+        "form":form_instance,
+        "sugg_id": sugg_id,
+    }
+    return render(request, "comment.html", context=context)
+
+@login_required
 def suggestion_view(request):
+    if not request.user.is_authenticated:
+        return redirect("/")
+    if request.method == "POST":
+        form_instance = forms.SuggestionForm(request.POST)
+        if form_instance.is_valid():
+            form_instance.save(request)
+            return redirect("/")
+    else:
+        form_instance = forms.SuggestionForm()
+    context = {
+        "title":"Suggestion",
+        "form":form_instance
+    }
+    return render(request, "suggestion.html", context=context)
+
+def suggestions_view(request):
     suggestion_objects = models.SuggestionModel.objects.all()
 
     suggestion_list = {}

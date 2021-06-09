@@ -3,26 +3,39 @@
 
 
 {% block title %} {{ title }} {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
+{% endblock %}
 
 {% block content %}
-
 <div id="list-rendering">
-
-    <ul>
-        <li v-for="sugg in suggestions">
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
             {% verbatim %}
-            {{ sugg.suggestion }} - {{ sugg.author }}
-            {% endverbatim %}
-        </li>
-    </ul>
+            <div class="card-info primary large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell" v-for="sugg in suggestions">
+                <div class="card-info-content">
+                    <h3 class="lead">{{ sugg.suggestion }}</h3>
+                    <p>authored by {{ sugg.author }}</p>
+                    <div class="grid-x">
+                        <div class="card-info primary large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell" v-for="comm in sugg.comments">
+                            <div class="card-info-content">
+                                <h3 class="lead"> {{ comm.comment }}</h3>
+                                <p>authored by {{ comm.author }}</p>
+                            </div>
+                        </div>
+                        {% endverbatim %}
+                        {% if user.is_authenticated %}
+                        <div class="large-10 medium-10 small-12 cell">
+                                <a :href="'/comment/'+ sugg.id +'/'" class="button">add comment</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
-{% if user.is_authenticated %}
-<form action="/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Add Suggestion" class="button">
-</form>
-{% endif %}
 
 {% endblock %}
 
