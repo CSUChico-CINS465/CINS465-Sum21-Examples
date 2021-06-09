@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login
 
@@ -63,3 +64,26 @@ def register_view(request):
     }
 
     return render(request, "registration/register.html", context=context)
+
+def suggestion_view(request):
+    suggestion_objects = models.SuggestionModel.objects.all()
+
+    suggestion_list = {}
+    suggestion_list["suggestions"]=[]
+    for sugg in suggestion_objects:
+        comment_objects = models.CommentModel.objects.filter(
+            suggestion=sugg
+        )
+        temp_sugg = {}
+        temp_sugg["suggestion"] = sugg.suggestion
+        temp_sugg["id"] = sugg.id
+        temp_sugg["author"] = sugg.author.username
+        temp_sugg["comments"] = []
+        for comm in comment_objects:
+            temp_comm = {}
+            temp_comm["comment"] = comm.comment
+            temp_comm["author"] = comm.author.username
+            temp_comm["id"] = comm.id
+            temp_sugg["comments"] += [temp_comm]
+        suggestion_list["suggestions"].append(temp_sugg)
+    return JsonResponse(suggestion_list)

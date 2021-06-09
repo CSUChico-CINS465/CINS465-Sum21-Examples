@@ -5,17 +5,17 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
-<ul>
-    {% for sugg in list %}
-    <li>{{ sugg.suggestion }} - {{ sugg.author }} 
-        <ul>
-            {% for comm in sugg.comments %}
-            <li>{{ comm.comment }} - {{ comm.author }}</li>
-            {% endfor %}
-        </ul>
-    </li>
-    {% endfor %}
-</ul>
+
+<div id="list-rendering">
+
+    <ul>
+        <li v-for="sugg in suggestions">
+            {% verbatim %}
+            {{ sugg.suggestion }} - {{ sugg.author }}
+            {% endverbatim %}
+        </li>
+    </ul>
+</div>
 {% if user.is_authenticated %}
 <form action="/" method="post">
     {% csrf_token %}
@@ -24,4 +24,10 @@
 </form>
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="{% static 'js/myvue.js' %}"></script>
 {% endblock %}
