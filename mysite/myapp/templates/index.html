@@ -15,12 +15,16 @@
             <div class="card-info primary large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell" v-for="sugg in suggestions">
                 <div class="card-info-content">
                     <h3 class="lead">{{ sugg.suggestion }}</h3>
+                    <img :src="sugg.image" :alt="sugg.image_desc" width="500"/>
+                    <!-- <img v-bind="{ src: sugg.image, alt: sugg.image_desc }"/> -->
                     <p>authored by {{ sugg.author }}</p>
+                    <p>{{ sugg.date }}</p>
                     <div class="grid-x">
                         <div class="card-info primary large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell" v-for="comm in sugg.comments">
                             <div class="card-info-content">
                                 <h3 class="lead"> {{ comm.comment }}</h3>
                                 <p>authored by {{ comm.author }}</p>
+                                <p>{{ comm.date }}</p>
                             </div>
                         </div>
                         {% endverbatim %}

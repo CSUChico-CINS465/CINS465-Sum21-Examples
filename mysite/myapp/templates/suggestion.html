@@ -6,7 +6,7 @@
   <!-- <div class="large-4 medium-4 small-12 cell"></div> -->
   <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
     <h3 class="text-center">Add Suggestion</h3>
-    <form action="/suggestion/" method="post">
+    <form action="/suggestion/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{ form }}

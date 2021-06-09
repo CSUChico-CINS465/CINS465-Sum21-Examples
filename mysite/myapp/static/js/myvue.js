@@ -28,7 +28,7 @@ const ListRendering = {
                 // handle error
                 console.log(error);
             })
-        }, 60000);
+        }, 10000);
 
     }
 
