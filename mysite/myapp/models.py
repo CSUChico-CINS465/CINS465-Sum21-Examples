@@ -24,7 +24,7 @@ class SuggestionModel(models.Model):
     )
 
     def __str__(self):
-        return str(self.id) + " " + str(self.author.username) + " " + self.suggestion
+        return str(self.author.username) + " " + self.suggestion
 
 
 class CommentModel(models.Model):
@@ -43,4 +43,4 @@ class CommentModel(models.Model):
 
 
     def __str__(self):
-        return str(self.id) + " " + str(self.author.username) + " " + self.comment
+        return str(self.author.username) + " " + self.comment

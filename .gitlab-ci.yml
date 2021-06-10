@@ -36,7 +36,7 @@ test:
   stage: test
   image: "$CI_REGISTRY_IMAGE:testing"
   script:
-    - cd /code
+    - cd /code/mysite
     - coverage --version
     - coverage run --source='.' ./manage.py test
     - coverage report --skip-covered
