@@ -6,8 +6,23 @@ services:
     build: .
     volumes:
        - .:/code
-    ports:
-       - 8000:8000
-   #  user: "1000:1000" #system dependent
+    expose:
+      - 8000
+    user: "1001:1002" #system dependent
     command: python /code/mysite/manage.py runserver 0.0.0.0:8000
+
+  nginx:
+   restart: always
+   build: ./nginx/
+   volumes:
+      - ./mysite/myapp/static:/static/
+   depends_on: 
+      - web
+   ports:
+      - 80:80
+   links:
+      - web:web
+
+
+
 
