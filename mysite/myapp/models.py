@@ -22,7 +22,7 @@ class SuggestionModel(models.Model):
         max_length=240,
         null=True
     )
-    
+
     def __str__(self):
         return str(self.id) + " " + str(self.author.username) + " " + self.suggestion
 
@@ -40,7 +40,7 @@ class CommentModel(models.Model):
     published_on = models.DateTimeField(
         auto_now_add=True
     )
-    
+
 
     def __str__(self):
         return str(self.id) + " " + str(self.author.username) + " " + self.comment

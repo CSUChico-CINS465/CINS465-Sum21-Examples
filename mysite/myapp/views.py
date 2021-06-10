@@ -1,9 +1,7 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-
-from datetime import datetime, timezone
 
 from . import models
 from . import forms
@@ -24,7 +22,7 @@ def register_view(request):
     if request.method == "POST":
         form_instance = forms.RegistrationForm(request.POST)
         if form_instance.is_valid():
-            user = form_instance.save()
+            form_instance.save()
             # login(request, user)
             return redirect("/login/")
     else:
@@ -98,20 +96,7 @@ def suggestions_view(request):
             temp_comm["comment"] = comm.comment
             temp_comm["author"] = comm.author.username
             temp_comm["id"] = comm.id
-            time_diff = datetime.now(timezone.utc) - comm.published_on
-            time_diff_s = time_diff.total_seconds()
-            if time_diff_s < 60:
-                temp_comm["date"] = "published " + str(int(time_diff_s)) + " seconds ago"
-            else:
-                time_diff_m = divmod(time_diff_s, 60)[0]
-                if time_diff_m < 60:
-                    temp_comm["date"] = "published " + str(int(time_diff_m)) + " minutes ago"
-                else:
-                    time_diff_h = divmod(time_diff_m, 60)[0]
-                    if time_diff_h < 24:
-                        temp_comm["date"] = "published " + str(int(time_diff_h)) + " hours ago"
-                    else:
-                        temp_comm["date"]  = "published on " + comm.published_on.strftime("%Y-%m-%d %H:%M:%S")
+            temp_comm["date"]  = comm.published_on.strftime("%Y-%m-%d %H:%M:%S")
             temp_sugg["comments"] += [temp_comm]
         suggestion_list["suggestions"].append(temp_sugg)
     return JsonResponse(suggestion_list)

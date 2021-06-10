@@ -1,8 +1,6 @@
 from django import forms
-from django.core.validators import validate_slug
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import fields
 
 from . import models
 
@@ -94,9 +92,9 @@ class RegistrationForm(UserCreationForm):
             "password1",
             "password2"
         )
-    
+
     def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
