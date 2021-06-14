@@ -3,26 +3,58 @@ version: '3'
 
 services:
   web:
+    restart: always
     build: .
     volumes:
-       - .:/code
+      - .:/code
+    depends_on:
+      - redis
+    links:
+      - redis:redis
     expose:
       - 8000
     user: "1001:1002" #system dependent
-    command: python /code/mysite/manage.py runserver 0.0.0.0:8000
+   #  command: python /code/mysite/manage.py runserver 0.0.0.0:8000
+    working_dir: /code/mysite
+    command: daphne -b 0.0.0.0 -p 8000 mysite.asgi:application
 
-  nginx:
-   restart: always
-   build: ./nginx/
-   volumes:
-      - ./mysite/myapp/static:/static/
+#   nginx:
+#    restart: always
+#    build: ./nginx/
+#    volumes:
+#       - ./mysite/myapp/static:/static/
+#    depends_on: 
+#       - web
+#    ports:
+#       - 80:80
+#       - 443:443
+#    links:
+#       - web:web
+
+  redis:
+   image: redis:latest
+   expose:
+      - 6379
+
+  caddy:
+   image: caddy:latest
+   restart: unless-stopped
    depends_on: 
-      - web
-   ports:
-      - 80:80
-      - 443:443
+     - web
    links:
-      - web:web
+     - web:web
+   ports:
+     - "80:80"
+     - "443:443"
+   volumes:
+     - $PWD/Caddyfile:/etc/caddy/Caddyfile
+     - $PWD/mysite/myapp/static:/srv/static/
+     - caddy_data:/data
+     - caddy_config:/config
+
+volumes:
+ caddy_data:
+ caddy_config:
 
 
 
