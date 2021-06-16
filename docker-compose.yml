@@ -14,6 +14,8 @@ services:
     expose:
       - 8000
     user: "1001:1002" #system dependent
+    environment: 
+      - GOOGLE_APPLICATION_CREDENTIALS=/code/mysite/cins465-google-creds.json
    #  command: python /code/mysite/manage.py runserver 0.0.0.0:8000
     working_dir: /code/mysite
     command: daphne -b 0.0.0.0 -p 8000 mysite.asgi:application
@@ -48,7 +50,7 @@ services:
      - "443:443"
    volumes:
      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-     - $PWD/mysite/myapp/static:/srv/static/
+    #  - $PWD/mysite/myapp/static:/srv/static/
      - caddy_data:/data
      - caddy_config:/config
 

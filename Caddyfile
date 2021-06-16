@@ -1,17 +1,5 @@
 www.alumnimentor.org {
-    root * /srv/
-    file_server *
-    @notStatic {
-        not path /static/*
-    }
-    reverse_proxy @notStatic web:8000
-    log {
-        output file /var/log/access.log {
-            roll_size 1gb
-            roll_keep 5
-            roll_keep_for 720h
-        }
-    }
+    reverse_proxy web:8000
 }
 
 alumnimentor.org {

@@ -241,3 +241,7 @@ Temporary Items
 # NGINX
 
 nginx/ssl/
+
+#GCP
+
+mysite/cins465-google-creds.json
