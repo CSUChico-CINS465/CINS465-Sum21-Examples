@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import secrets
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nke*4duhaoni6cp45-ez-fcl=*&_p&e45ov$4o1s9jve02(&p0'
+# SECRET_KEY = 'django-insecure-nke*4duhaoni6cp45-ez-fcl=*&_p&e45ov$4o1s9jve02(&p0'
+length = 50
+chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+SECRET_KEY = ''.join(secrets.choice(chars) for i in range(length))
+# SECRET_KEY = ''
+# for i in range(length):
+#     SECRET_KEY += secrets.choice(chars)
+
+# print(SECRET_KEY)
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['35.208.129.144','alumnimentor.org','www.alumnimentor.org']
 
