@@ -48,15 +48,10 @@
 <script src="https://unpkg.com/vue@next"></script>
 <script src="{% static 'js/myvue.js' %}"></script>
 <script type="module">
-    import init, { greet, add } from '/wasm/js/myproject.js';
+    import init, { run_app } from '/wasm/js/myproject.js';
     async function run(){
         await init();
-        greet();
-        // And afterwards we can use all the functionality defined in wasm.
-        const result = add(1, 2);
-        console.log(`1 + 2 = ${result}`);
-        if (result !== 3)
-          throw new Error("wasm addition doesn't work!");
+        run_app();
     }
     run();
 </script>

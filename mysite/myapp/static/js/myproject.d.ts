@@ -2,20 +2,17 @@
 /* eslint-disable */
 /**
 */
-export function greet(): void;
-/**
-* @param {number} a
-* @param {number} b
-* @returns {number}
-*/
-export function add(a: number, b: number): number;
+export function run_app(): void;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly greet: () => void;
-  readonly add: (a: number, b: number) => number;
+  readonly run_app: () => void;
+  readonly __wbindgen_malloc: (a: number) => number;
+  readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
+  readonly __wbindgen_free: (a: number, b: number) => void;
+  readonly __wbindgen_exn_store: (a: number) => void;
 }
 
 /**
