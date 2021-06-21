@@ -21,6 +21,7 @@
         <li><a href="/logout/">Logout</a></li>
         {% else %}
         <li><a href="/login/">Login</a></li>
+        <li><a href="{% url "social:begin" "google-oauth2" %}"><img src="{% static 'google_btn.png' %}" alt="Google Sign In" width="150"/></a>        </li>
         {% endif %}
       </ul>
     </div>

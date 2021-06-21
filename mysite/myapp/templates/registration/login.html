@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Login{% endblock %}
 {% block content %}
@@ -16,6 +17,7 @@
         {{ form.password }}
         <input type="submit" class="button expanded" value="Login" />
         <a href="/register/" class="secondary button expanded">Register</a>
+        <center><a href="{% url "social:begin" "google-oauth2" %}"><img src="{% static 'google_btn.png' %}" alt="Google Sign In" width="200"/></a></center>
         <input type="hidden" name="next" value="{{ request.GET.next }}" />
     </form>
   </div>
