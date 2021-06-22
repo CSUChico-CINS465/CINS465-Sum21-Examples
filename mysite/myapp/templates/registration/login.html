@@ -15,6 +15,8 @@
         {{ form.username }}
         <label>{{ form.password.label_tag }}</label>
         {{ form.password }}
+        <label>{{ form.otp_token.label_tag }}</label>
+        {{ form.otp_token }}
         <input type="submit" class="button expanded" value="Login" />
         <a href="/register/" class="secondary button expanded">Register</a>
         <center><a href="{% url "social:begin" "google-oauth2" %}"><img src="{% static 'google_btn.png' %}" alt="Google Sign In" width="200"/></a></center>
